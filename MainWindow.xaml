@@ -1,0 +1,168 @@
+﻿<Window x:Class="BlackjackGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BlackjackGame"
+        mc:Ignorable="d"
+        Title="Blackjack" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Assets/Other/icon.png" FontFamily="./#Poker">
+    <Window.Background>
+        <ImageBrush ImageSource="C:\Users\mio3e\source\repos\Blackjack\Assets\Other\background.png"/>
+    </Window.Background>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <!--Begin cited code-->
+            <!--https://stackoverflow.com/a/17259993/14159573-->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
+            <!--End cited code-->
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="Interface">
+        <TextBlock x:Name="announcer" TextAlignment="Center" FontSize="80" FontFamily="Poker" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="-3,131,-3,435" Width="1024" Height="175" Foreground="#FF203800" LineHeight="85" LineStackingStrategy="BlockLineHeight" Text="Place your bet!"/>
+        <!--you can stack up to 9 cards before busting in blackjack so there are 9 places for cards for both the player and the dealer-->
+        <Grid x:Name="Cards" Width="780" Height="375" Margin="34,134,34,230" HorizontalAlignment="Center">
+            <Grid x:Name="PlayerCards" Width="390" HorizontalAlignment="Left">
+                <Grid Width="40" Height="40" HorizontalAlignment="Left" Margin="0,78,0,257">
+                    <Image Name="PDisplay" Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Other\score.png" Visibility="Collapsed"/>
+                    <TextBlock Name="PScore" TextAlignment="Center" FontSize="30" Foreground="White" FontFamily="Poker" Text=""/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Left" Margin="0,120,0,55">
+                    <Image x:Name="PCard1"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Left" Margin="40,105,0,70">
+                    <Image x:Name="PCard2"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Left" Margin="80,90,0,85">
+                    <Image Name="PCard3"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Left" Margin="120,75,0,100">
+                    <Image Name="PCard4"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Left" Margin="160,60,0,115">
+                    <Image Name="PCard5"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Left" Margin="200,45,0,130">
+                    <Image Name="PCard6"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Left" Margin="240,30,0,145">
+                    <Image Name="PCard7"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Left" Margin="280,15,0,160">
+                    <Image Name="PCard8"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Left" Margin="320,0,0,175">
+                    <Image Name="PCard9"/>
+                </Grid>
+            </Grid>
+            <Grid x:Name="DealerCards" Width="390" HorizontalAlignment="Right">
+                <Grid Width="40" Height="40" HorizontalAlignment="Right" Margin="0,78,0,257">
+                    <Image Name="DDisplay" Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Other\score.png" Visibility="Collapsed"/>
+                    <TextBlock Name="DScore" TextAlignment="Center" FontSize="30" Foreground="White" FontFamily="Poker" Text="" Visibility="Collapsed"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Right" Margin="0,120,0,55">
+                    <Image Name="DCard1"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Right" Margin="0,105,40,70">
+                    <Image Name="DCard2"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Right" Margin="0,90,80,85">
+                    <Image Name="DCard3"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Right" Margin="0,75,120,100">
+                    <Image Name="DCard4"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Right" Margin="0,60,160,115">
+                    <Image Name="DCard5"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Right" Margin="0,45,200,130">
+                    <Image Name="DCard6"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Right" Margin="0,30,240,145">
+                    <Image Name="DCard7"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Right" Margin="0,15,280,160">
+                    <Image Name="DCard8"/>
+                </Grid>
+                <Grid Width="142" Height="200" HorizontalAlignment="Right" Margin="0,0,320,175">
+                    <Image Name="DCard9"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid x:Name="Buttons">
+            <Grid.Resources>
+                <Style TargetType="Image">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Resources>
+            <Grid x:Name="Chips" Width="500" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Margin="259,20,259,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <Button Name="b50" Click="Bet" Grid.Column="1">
+                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Chips\50.png"/>
+                </Button>
+                <Button Name="b100" Click="Bet" Grid.Column="3">
+                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Chips\100.png"/>
+                </Button>
+                <Button Name="b250" Click="Bet" Grid.Column="5">
+                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Chips\250.png"/>
+                </Button>
+                <Button Name="b500" Click="Bet" Grid.Column="7">
+                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Chips\500.png"/>
+                </Button>
+            </Grid>
+            <Grid x:Name="Actions" Width="441" Height="60" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,81,47">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="137"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="137"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="137"/>
+                </Grid.ColumnDefinitions>
+                <Button Name="hit" Click="Hit" IsEnabled="False" Grid.Column="0">
+                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Buttons\hit.png"/>
+                </Button>
+                <Button Name="stand" Click="Stand" IsEnabled="False" Grid.Column="2">
+                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Buttons\stand.png"/>
+                </Button>
+                <Button Name="dble" Click="Double" IsEnabled="False" Grid.Column="4">
+                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Buttons\double.png"/>
+                </Button>
+            </Grid>
+        </Grid>
+        <Grid x:Name="Stats" Width="376" Height="120" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="23,0,0,22">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <TextBlock Name="betDisplay" FontWeight="Bold" Grid.Row="0" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Bet: $0"/>
+            <TextBlock Name="balDisplay" FontWeight="Bold" Grid.Row="1" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Balance: $2500"/>
+        </Grid>
+    </Grid>
+</Window>
