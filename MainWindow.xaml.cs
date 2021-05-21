@@ -328,21 +328,21 @@ namespace BlackjackGame
         //and returns the image source of the card.
         public static BitmapImage CardToImage(Card card)
         {
-            string src = @"C:\Users\mio3e\source\repos\BlackjackGame\Assets\Cards\REPLACEPLZ.png";
+            string src = @"Assets\Cards\REPLACEPLZ.png";
             src = src.Replace("REPLACEPLZ", $@"{card.Suit}\{card.Name}");
-            BitmapImage source = new BitmapImage(new Uri(src));
+            BitmapImage source = new BitmapImage(new Uri(src, UriKind.Relative));
             return source;
         }
         //Works in the same way as ChooseCard(), but the card is hidden and instead an if 
         //determines whether the back of the card will be black or red.
         public static BitmapImage DealerCardToImage(Card card)
         {
-            string src = @"C:\Users\mio3e\source\repos\BlackjackGame\Assets\Cards\REPLACEPLZ.png";
+            string src = @"Assets\Cards\REPLACEPLZ.png";
             if (card.Suit.Equals("Clubs") || card.Suit.Equals("Spades"))
                 src = src.Replace("REPLACEPLZ", "Black");
             else
                 src = src.Replace("REPLACEPLZ", "Red");
-            BitmapImage source = new BitmapImage(new Uri(src));
+            BitmapImage source = new BitmapImage(new Uri(src, UriKind.Relative));
             return source;
         }
     }

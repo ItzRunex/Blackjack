@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Blackjack" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Assets/Other/icon.png" FontFamily="./#Poker">
     <Window.Background>
-        <ImageBrush ImageSource="C:\Users\mio3e\source\repos\Blackjack\Assets\Other\background.png"/>
+        <ImageBrush ImageSource="Assets\Other\background.png"/>
     </Window.Background>
     <Window.Resources>
         <Style TargetType="Button">
@@ -37,7 +37,7 @@
         <Grid x:Name="Cards" Width="780" Height="375" Margin="34,134,34,230" HorizontalAlignment="Center">
             <Grid x:Name="PlayerCards" Width="390" HorizontalAlignment="Left">
                 <Grid Width="40" Height="40" HorizontalAlignment="Left" Margin="0,78,0,257">
-                    <Image Name="PDisplay" Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Other\score.png" Visibility="Collapsed"/>
+                    <Image Name="PDisplay" Source="Assets\Other\score.png" Visibility="Collapsed"/>
                     <TextBlock Name="PScore" TextAlignment="Center" FontSize="30" Foreground="White" FontFamily="Poker" Text=""/>
                 </Grid>
                 <Grid Width="142" Height="200" HorizontalAlignment="Left" Margin="0,120,0,55">
@@ -70,7 +70,7 @@
             </Grid>
             <Grid x:Name="DealerCards" Width="390" HorizontalAlignment="Right">
                 <Grid Width="40" Height="40" HorizontalAlignment="Right" Margin="0,78,0,257">
-                    <Image Name="DDisplay" Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Other\score.png" Visibility="Collapsed"/>
+                    <Image Name="DDisplay" Source="Assets\Other\score.png" Visibility="Collapsed"/>
                     <TextBlock Name="DScore" TextAlignment="Center" FontSize="30" Foreground="White" FontFamily="Poker" Text="" Visibility="Collapsed"/>
                 </Grid>
                 <Grid Width="142" Height="200" HorizontalAlignment="Right" Margin="0,120,0,55">
@@ -125,16 +125,16 @@
                     <ColumnDefinition Width="20"/>
                 </Grid.ColumnDefinitions>
                 <Button Name="b50" Click="Bet" Grid.Column="1">
-                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Chips\50.png"/>
+                    <Image Source="Assets\Chips\50.png"/>
                 </Button>
                 <Button Name="b100" Click="Bet" Grid.Column="3">
-                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Chips\100.png"/>
+                    <Image Source="Assets\Chips\100.png"/>
                 </Button>
                 <Button Name="b250" Click="Bet" Grid.Column="5">
-                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Chips\250.png"/>
+                    <Image Source="Assets\Chips\250.png"/>
                 </Button>
                 <Button Name="b500" Click="Bet" Grid.Column="7">
-                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Chips\500.png"/>
+                    <Image Source="Assets\Chips\500.png"/>
                 </Button>
             </Grid>
             <Grid x:Name="Actions" Width="441" Height="60" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,81,47">
@@ -146,13 +146,13 @@
                     <ColumnDefinition Width="137"/>
                 </Grid.ColumnDefinitions>
                 <Button Name="hit" Click="Hit" IsEnabled="False" Grid.Column="0">
-                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Buttons\hit.png"/>
+                    <Image Source="Assets\Buttons\hit.png"/>
                 </Button>
                 <Button Name="stand" Click="Stand" IsEnabled="False" Grid.Column="2">
-                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Buttons\stand.png"/>
+                    <Image Source="Assets\Buttons\stand.png"/>
                 </Button>
                 <Button Name="dble" Click="Double" IsEnabled="False" Grid.Column="4">
-                    <Image Source="C:\Users\mio3e\source\repos\BlackjackGame\Assets\Buttons\double.png"/>
+                    <Image Source="Assets\Buttons\double.png"/>
                 </Button>
             </Grid>
         </Grid>
