@@ -36,7 +36,6 @@ namespace BlackjackGame
         }
         public async Task SpreadCards()
         {
-            EnableActions();
             ShowScore(false);
             Card pc1 = deck.PickCard();
             Card pc2 = deck.PickCard();
@@ -55,6 +54,7 @@ namespace BlackjackGame
             hidden = new Card(dc1.Name, dc1.Suit, dc1.Value); //We need to save it, because we'll need it in another method.
             await Task.Delay(500);
             DCard2.Source = Card.CardToImage(dc2);
+            EnableActions();
             //Check if player blackjack or if dealer blackjack, show the dealer card and end the game. Else enable the action buttons.
             if (player.Score == 21 && dealerScore == 21)
             {

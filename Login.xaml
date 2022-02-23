@@ -1,0 +1,19 @@
+﻿<Window x:Class="BlackjackGame.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:BlackjackGame"
+       mc:Ignorable="d"
+       Title="LogIn" Height="300" Width="300" FontSize="14" Background="#04C582">
+    <Border Background="#2e3137" CornerRadius="20" Margin="20">
+        <StackPanel Margin="20,20,20,10.5">
+            <Label Content="Login" Foreground="White" FontSize="25" HorizontalAlignment="Center" />
+            <Separator></Separator>
+            <Label Content="Username" Foreground="White"/>
+            <TextBox x:Name="txtUserName" Background="#545d6a" Foreground="White" FontSize="18"/>
+            <Label Content="Password" Foreground="White"/>
+            <PasswordBox x:Name="PasswordBox" Background="#545d6a" Foreground="White" FontSize="18"/>
+            <Button x:Name="btnSubmit" Click="btnSubmit_Click" Content="Submit" Margin="60,10" Background="#545d6a" Foreground="White" FontSize="18"/>
+        </StackPanel>
+    </Border>
+</Window> 
