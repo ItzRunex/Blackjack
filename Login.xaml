@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:BlackjackGame"
        mc:Ignorable="d"
-       Title="LogIn" Height="300" Width="300" FontSize="14" Background="#04C582">
+       Title="LogIn" Height="300" Width="300" FontSize="14" Background="DarkGray">
     <Border Background="#2e3137" CornerRadius="20" Margin="20">
         <StackPanel Margin="20,20,20,10.5">
             <Label Content="Login" Foreground="White" FontSize="25" HorizontalAlignment="Center" />
