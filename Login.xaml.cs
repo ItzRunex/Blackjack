@@ -21,32 +21,30 @@ namespace BlackjackGame
     /// </summary>
     public partial class Login : Window
     {
+        private static SqlConnection sqlCon = new SqlConnection(@"Data Source = dewest.database.windows.net; Initial Catalog = blackjackgame; Integrated Security = True; Trusted_Connection = False; User ID = mish; Password = Shomiegotin1;");
+        private static string username;
+        private static int balance = 10;
         public Login()
         {
             InitializeComponent();
         }
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            string DBPath = @"LABSCIFIPC20\LOCALHOST";
-            SqlConnection sqlCon = new SqlConnection($@"Data Source ={DBPath}; Initial Catalog = Accounts; Integrated Security = True");
+            username = txtUserName.Text;
             try
             {
-                if (sqlCon.State == ConnectionState.Closed)
-                    sqlCon.Open();
-                if (!CheckLogin(sqlCon))
+                if ((GetBalance()) < 50)
                 {
-                    MessageBoxResult result = MessageBox.Show("No account matching! Do you want to register a new account?", "No Account", MessageBoxButton.YesNo);
+                    MessageBoxResult result = MessageBox.Show("You either do not have an account or have ran out of money! Do you want to register a new account?", "No Account", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
                     {
-                        string regQuery = "INSERT INTO Accounts (Username, Password) VALUES (@Username, @Password)";
-                        SqlCommand sqlRegCmd = new SqlCommand(regQuery, sqlCon);
-                        sqlRegCmd.CommandType = CommandType.Text;
-                        sqlRegCmd.Parameters.AddWithValue("@Username", txtUserName.Text);
-                        sqlRegCmd.Parameters.AddWithValue("@Password", PasswordBox.Password);
+                        if (sqlCon.State == ConnectionState.Closed)
+                            sqlCon.Open();
+                        SqlCommand sqlRegCmd = new SqlCommand($"INSERT INTO Accounts (Username, Password, Balance) VALUES ('{txtUserName.Text}', '{PasswordBox.Password}', 2500)", sqlCon);
                         sqlRegCmd.ExecuteNonQuery();
-                        if (!CheckLogin(sqlCon))
+                        if (GetBalance() < 50)
                         {
-                            MessageBox.Show("An error has occurred while creating your account!");
+                            MessageBox.Show("An error occurred while creating your account!");
                             return;
                         }
                     }
@@ -55,6 +53,7 @@ namespace BlackjackGame
                         return;
                     }
                 }
+                balance = GetBalance();
                 MainWindow dashboard = new MainWindow();
                 dashboard.Show();
                 this.Close();
@@ -63,20 +62,23 @@ namespace BlackjackGame
             {
                 MessageBox.Show(ex.Message);
             }
-            finally
-            {
-                sqlCon.Close();
-            }
         }
-        private bool CheckLogin(SqlConnection sqlCon)
+        public int GetBalance()
         {
-            string query = "SELECT COUNT(1) FROM Accounts WHERE Username=@Username AND Password=@Password";
+            if (sqlCon.State == ConnectionState.Closed)
+                sqlCon.Open();
+            string query = $"SELECT Balance FROM Accounts WHERE Username='{txtUserName.Text}' AND Password='{PasswordBox.Password}'";
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-            sqlCmd.CommandType = CommandType.Text;
-            sqlCmd.Parameters.AddWithValue("@Username", txtUserName.Text);
-            sqlCmd.Parameters.AddWithValue("@Password", PasswordBox.Password);
-            int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
-            return count == 1;
+            int balance = Convert.ToInt32(sqlCmd.ExecuteScalar());
+            return balance;
+        }
+        public string Username
+        {
+            get { return username; }
+        }
+        public int Balance
+        {
+            get { return balance; }
         }
     }
 }

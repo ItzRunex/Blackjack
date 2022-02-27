@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +11,7 @@ namespace BlackjackGame
 {
     public partial class MainWindow : Window
     {
+        public static SqlConnection sqlCon = new SqlConnection(@"Data Source = dewest.database.windows.net; Initial Catalog = blackjackgame; Integrated Security = False; User ID = mish; Password = Shomiegotin1;");
         private Player player = new Player();
         private Deck deck = new Deck();
         private Card hidden; //A call for the hidden dealer card.
@@ -16,6 +19,8 @@ namespace BlackjackGame
         public MainWindow()
         {
             InitializeComponent();
+            Console.WriteLine(player.Balance);
+            UpdateStats();
         }
         private async void Bet(object sender, RoutedEventArgs e)
         {
@@ -58,7 +63,7 @@ namespace BlackjackGame
             //Check if player blackjack or if dealer blackjack, show the dealer card and end the game. Else enable the action buttons.
             if (player.Score == 21 && dealerScore == 21)
             {
-                announcer.Text = $"Push.{Environment.NewLine}+$0";
+                announcer.Text = $"Push.{Environment.NewLine}+${player.BetAmt}";
                 await Reset();
             }
             else if (player.Score == 21)
@@ -103,16 +108,16 @@ namespace BlackjackGame
             UpdateScore();
             player.CardCount++;
             //If player blackjacks or player busts, show the dealer card and end the game. Else re-enable the action buttons.
-            if (player.Score == 21 && player.Score > dealerScore)
+            if (player.Score == 21)
             {
-                announcer.Text = $"Blackjack! You win!{Environment.NewLine}+${player.Blackjack() - player.BetAmt}";
+                announcer.Text = $"Blackjack! You win!{Environment.NewLine}+${player.Blackjack()}";
                 await Reset();
             }
-            else if (player.Score == 21 && player.Score == dealerScore)
-            {
-                announcer.Text = $"Push.{Environment.NewLine}+$0";
-                await Reset();
-            }
+            //else if (player.Score == 21 && player.Score == dealerScore)
+            //{
+            //    announcer.Text = $"Push.{Environment.NewLine}+$0";
+            //    await Reset();
+            //}
             else if (player.Score > 21)
             {
                 announcer.Text = $"Bust! You lose.{Environment.NewLine}-${player.BetAmt}";
@@ -164,13 +169,13 @@ namespace BlackjackGame
             }
             //If score isn't blackjack for any sides, or if the player hasn't gone bust from hitting, one of the following will apply:
             if (dealerScore > 21)
-                announcer.Text = $"Dealer bust! You win!{Environment.NewLine}+${player.Win() - player.BetAmt}";
+                announcer.Text = $"Dealer bust! You win!{Environment.NewLine}+${player.Win()}";
             else if (dealerScore > player.Score)
                 announcer.Text = $"Dealer wins.{Environment.NewLine}-${player.BetAmt}";
             else if (dealerScore < player.Score)
-                announcer.Text = $"You win!{Environment.NewLine}+${player.Win() - player.BetAmt}";
+                announcer.Text = $"You win!{Environment.NewLine}+${player.Win()}";
             else
-                announcer.Text = $"Push.{Environment.NewLine}+$0";
+                announcer.Text = $"Push.{Environment.NewLine}+${player.BetAmt}";
             await Reset();
         }
         private async void Double(object sender, RoutedEventArgs e)
@@ -183,7 +188,7 @@ namespace BlackjackGame
             {
                 if (player.Score == 21)
                 {
-                    announcer.Text = $"Blackjack! You win!{Environment.NewLine}+${player.Blackjack() - player.BetAmt}";
+                    announcer.Text = $"Blackjack! You win!{Environment.NewLine}+${player.Blackjack()}";
                     await Reset();
                 }
                 else if (dealerScore == 21)
@@ -228,10 +233,17 @@ namespace BlackjackGame
             UpdateStats();
             if (player.IsBroke())
             {
-                announcer.Text = $"You're in{Environment.NewLine}debt!";
+                announcer.Text = $"You have gone{Environment.NewLine}broke!";
                 await Task.Delay(5000);
                 Application.Current.Shutdown();
-                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                SqlCommand deleteAcc = new SqlCommand($"DELETE FROM Accounts WHERE Username='{player.Username}'", MainWindow.sqlCon);
+                deleteAcc.ExecuteNonQuery();
+                this.Close();
+                MessageBoxResult result = MessageBox.Show("You have ran out of money and your account has been deleted. Do you want to play again?", "In Debt", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                }
             }
             else
             {
@@ -239,10 +251,15 @@ namespace BlackjackGame
                 EnableBets();
             }
         }
+        //Updates scoreboard and uploads new balance to database.
         private void UpdateStats()
         {
             betDisplay.Text = "Bet: $" + player.BetAmt;
             balDisplay.Text = "Balance: $" + player.Balance;
+            if (sqlCon.State == ConnectionState.Closed)
+                sqlCon.Open();
+            SqlCommand updateBal = new SqlCommand($"UPDATE Accounts SET Balance={player.Balance} WHERE Username='{player.Username}'", MainWindow.sqlCon);
+            updateBal.ExecuteNonQuery();
         }
         private void UpdateScore()
         {
@@ -299,6 +316,10 @@ namespace BlackjackGame
             hit.IsEnabled = false;
             stand.IsEnabled = false;
             dble.IsEnabled = false;
+        }
+        private void UpdateBalance()
+        {
+
         }
     }
     public class Card
@@ -372,16 +393,23 @@ namespace BlackjackGame
     }
     public class Player
     {
+        private string username;
         private int balance;
         private int bet;
         private int score;
         private int cardCount;
         public Player()
         {
-            balance = 2500;
+            Login loginData = new Login();
+            username = loginData.Username;
+            balance = loginData.Balance;
             bet = 0;
             score = 0;
             cardCount = 2;
+        }
+        public string Username
+        {
+            get { return username; }
         }
         public int Balance
         {
