@@ -21,7 +21,7 @@ namespace BlackjackGame
     /// </summary>
     public partial class Login : Window
     {
-        private static SqlConnection sqlCon = new SqlConnection(@"Data Source = dewest.database.windows.net; Initial Catalog = blackjackgame; Integrated Security = True; Trusted_Connection = False; User ID = mish; Password = Shomiegotin1;");
+        private static SqlConnection sqlCon = new SqlConnection(@"Data Source = dewest.database.windows.net; Initial Catalog = blackjackgame; User ID = mish; Password = Shomiegotin1; Trusted_Connection = False; MultipleActiveResultSets = True");
         private static string username;
         private static int balance = 10;
         public Login()

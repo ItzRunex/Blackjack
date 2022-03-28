@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Blackjack" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Assets/Other/icon.png" FontFamily="./#Poker">
     <Window.Background>
-        <ImageBrush ImageSource="Assets\Other\background.png"/>
+        <ImageBrush ImageSource="Assets\Backgrounds\default.png"/>
     </Window.Background>
     <Window.Resources>
         <Style TargetType="Button">
@@ -112,8 +112,9 @@
                     </Style.Triggers>
                 </Style>
             </Grid.Resources>
-            <Grid x:Name="Chips" Width="500" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Margin="259,20,259,0">
+            <Grid x:Name="Chips" HorizontalAlignment="Left" Width="1024" Height="100" VerticalAlignment="Top" Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="262"/>
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="20"/>
@@ -123,17 +124,21 @@
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="262"/>
                 </Grid.ColumnDefinitions>
-                <Button Name="b50" Click="Bet" Grid.Column="1">
+                <Button Name="settings" Click="OpenSettings" Grid.Column="0" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,0,0,0">
+                    <Image Source="Assets\Other\icon.png"/>
+                </Button>
+                <Button Name="b50" Click="Bet" Grid.Column="2">
                     <Image Source="Assets\Chips\50.png"/>
                 </Button>
-                <Button Name="b100" Click="Bet" Grid.Column="3">
+                <Button Name="b100" Click="Bet" Grid.Column="4">
                     <Image Source="Assets\Chips\100.png"/>
                 </Button>
-                <Button Name="b250" Click="Bet" Grid.Column="5">
+                <Button Name="b250" Click="Bet" Grid.Column="6">
                     <Image Source="Assets\Chips\250.png"/>
                 </Button>
-                <Button Name="b500" Click="Bet" Grid.Column="7">
+                <Button Name="b500" Click="Bet" Grid.Column="8">
                     <Image Source="Assets\Chips\500.png"/>
                 </Button>
             </Grid>

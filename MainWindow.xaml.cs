@@ -11,7 +11,7 @@ namespace BlackjackGame
 {
     public partial class MainWindow : Window
     {
-        public static SqlConnection sqlCon = new SqlConnection(@"Data Source = dewest.database.windows.net; Initial Catalog = blackjackgame; Integrated Security = False; User ID = mish; Password = Shomiegotin1;");
+        public static SqlConnection sqlCon = new SqlConnection(@"Data Source = dewest.database.windows.net; Initial Catalog = blackjackgame; User ID = mish; Password = Shomiegotin1; Trusted_Connection = False; MultipleActiveResultSets = True");
         private Player player = new Player();
         private Deck deck = new Deck();
         private Card hidden; //A call for the hidden dealer card.
@@ -19,7 +19,6 @@ namespace BlackjackGame
         public MainWindow()
         {
             InitializeComponent();
-            Console.WriteLine(player.Balance);
             UpdateStats();
         }
         private async void Bet(object sender, RoutedEventArgs e)
@@ -266,6 +265,11 @@ namespace BlackjackGame
             PScore.Text = Convert.ToString(player.Score);
             DScore.Text = Convert.ToString(dealerScore);
         }
+        private void OpenSettings(object sender, RoutedEventArgs e)
+        {
+            Settings settings = new Settings();
+            settings.Show();
+        }
         private void ShowScore(bool dealer)
         {
             PDisplay.Visibility = Visibility.Visible;
@@ -316,10 +320,6 @@ namespace BlackjackGame
             hit.IsEnabled = false;
             stand.IsEnabled = false;
             dble.IsEnabled = false;
-        }
-        private void UpdateBalance()
-        {
-
         }
     }
     public class Card
