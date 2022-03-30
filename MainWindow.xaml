@@ -127,7 +127,7 @@
                     <ColumnDefinition Width="262"/>
                 </Grid.ColumnDefinitions>
                 <Button Name="settings" Click="OpenSettings" Grid.Column="0" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,0,0,0">
-                    <Image Source="Assets\Other\icon.png"/>
+                    <Image Source="Assets\Settings\icon.png"/>
                 </Button>
                 <Button Name="b50" Click="Bet" Grid.Column="2">
                     <Image Source="Assets\Chips\50.png"/>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace BlackjackGame
 {
@@ -19,7 +20,12 @@ namespace BlackjackGame
         public MainWindow()
         {
             InitializeComponent();
+            CheckBackground();
             UpdateStats();
+        }
+        public Player Player
+        {
+            get { return player; }
         }
         private async void Bet(object sender, RoutedEventArgs e)
         {
@@ -257,7 +263,7 @@ namespace BlackjackGame
             balDisplay.Text = "Balance: $" + player.Balance;
             if (sqlCon.State == ConnectionState.Closed)
                 sqlCon.Open();
-            SqlCommand updateBal = new SqlCommand($"UPDATE Accounts SET Balance={player.Balance} WHERE Username='{player.Username}'", MainWindow.sqlCon);
+            SqlCommand updateBal = new SqlCommand($"UPDATE Accounts SET Balance={player.Balance} WHERE Username='{player.Username}'", sqlCon);
             updateBal.ExecuteNonQuery();
         }
         private void UpdateScore()
@@ -267,8 +273,28 @@ namespace BlackjackGame
         }
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
-            Settings settings = new Settings();
+            Settings settings = new Settings(this);
+            settings.Owner = this;
             settings.Show();
+        }
+        public void CheckBackground()
+        {
+            string[] bgs = { "default.png", "red.png", "yellow.png" };
+            SqlCommand checkBg = new SqlCommand($"SELECT Background FROM Accounts WHERE Username='{player.Username}'", sqlCon);
+            if (sqlCon.State == ConnectionState.Closed)
+                sqlCon.Open();
+            SqlDataReader dataReader = checkBg.ExecuteReader();
+            int bgIndex = 0;
+            if (dataReader.Read())
+                bgIndex = dataReader.GetInt32(0);
+            ImageBrush currentBg = new ImageBrush();
+            currentBg.ImageSource = new BitmapImage(new Uri($"..\\..\\Assets\\Backgrounds\\{bgs[bgIndex]}", UriKind.Relative));
+            Background = currentBg;
+            //if (!currentBg.ImageSource.ToString().Contains(bgs[0]))
+            //    announcer.Foreground = defaultColor;
+            //else
+            //    announcer.Foreground = defaultColor;
+            sqlCon.Close();
         }
         private void ShowScore(bool dealer)
         {
@@ -321,6 +347,7 @@ namespace BlackjackGame
             stand.IsEnabled = false;
             dble.IsEnabled = false;
         }
+
     }
     public class Card
     {
@@ -410,6 +437,7 @@ namespace BlackjackGame
         public string Username
         {
             get { return username; }
+            set { username = value; }
         }
         public int Balance
         {

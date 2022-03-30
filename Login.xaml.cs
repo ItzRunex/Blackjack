@@ -54,8 +54,8 @@ namespace BlackjackGame
                     }
                 }
                 balance = GetBalance();
-                MainWindow dashboard = new MainWindow();
-                dashboard.Show();
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
                 this.Close();
             }
             catch (Exception ex)

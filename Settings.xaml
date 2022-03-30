@@ -5,15 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlackjackGame"
         mc:Ignorable="d"
-        Title="Settings" Height="512" Width="683">
+        Title="Settings" Height="512" Width="683" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="Assets/Other/icon.png" FontFamily="./#Poker">
     <Window.Background>
         <ImageBrush ImageSource="Assets\Settings\background.png"/>
     </Window.Background>
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
-            <!--Begin cited code-->
-            <!--https://stackoverflow.com/a/17259993/14159573-->
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -28,7 +26,51 @@
                     <Setter Property="Background" Value="Transparent"/>
                 </Trigger>
             </Style.Triggers>
-            <!--End cited code-->
         </Style>
     </Window.Resources>
+    <Grid x:Name="SettingsGrid" Height="412" Width="400" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="205"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="heading" Grid.Row="0" Grid.Column="1" TextAlignment="Center" FontSize="35" FontFamily="Poker" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" LineStackingStrategy="BlockLineHeight" Text="Settings"/>
+        
+        <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Center" FontSize="20" FontFamily="Poker" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" LineStackingStrategy="BlockLineHeight" Text="Change Username" TextWrapping="Wrap" Width="90" Height="50"/>
+        <TextBox x:Name="userTextbox" Grid.Row="2" Grid.Column="1" TextAlignment="Left" FontSize="22" FontFamily="Poker" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" Height="40" Width="200"/>
+        <Button x:Name="userBtn" Click="SaveUser" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" Width="80">
+            <Image Source="Assets\Settings\button_save.png"/>
+        </Button>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Center" FontSize="20" FontFamily="Poker" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" LineStackingStrategy="BlockLineHeight" Text="Change Password" TextWrapping="Wrap" Width="90" Height="50"/>
+        <PasswordBox x:Name="pwTextbox" Grid.Row="3" Grid.Column="1" FontSize="22" FontFamily="Poker" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" Height="40" Width="200"/>
+        <Button x:Name="pwBtn" Click="SavePw" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" Width="80">
+            <Image Source="Assets\Settings\button_save.png"/>
+        </Button>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Center" FontSize="17" FontFamily="Poker" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" LineStackingStrategy="BlockLineHeight" Text="Change Background" TextWrapping="Wrap" Width="90" Height="50"/>
+        <Button x:Name="previousBg" Click="SwitchBg" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Width="20" Margin="20,0,0,0">
+            <Image Source="Assets\Settings\button_left.png"/>
+        </Button>
+        <Image x:Name="bgDisplay" Grid.Row="4" Grid.Column="1" Source="Assets\Backgrounds\default.png"/>
+        <Button x:Name="nextBg" Click="SwitchBg" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Width="20" Margin="0,0,20,0">
+            <Image Source="Assets\Settings\button_right.png"/>
+        </Button>
+        <Button x:Name="bgBtn" Click="SaveBg" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" Width="80">
+            <Image Source="Assets\Settings\button_save.png"/>
+        </Button>
+
+        <Button Click="CloseSettings" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" Width="110">
+            <Image Source="Assets\Settings\button_ok.png"/>
+        </Button>
+    </Grid>
 </Window>

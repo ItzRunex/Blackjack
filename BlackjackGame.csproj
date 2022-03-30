@@ -182,7 +182,6 @@
     <Resource Include="Assets\Chips\250.png" />
     <Resource Include="Assets\Chips\50.png" />
     <Resource Include="Assets\Chips\500.png" />
-    <Resource Include="Assets\Other\background.png" />
     <Resource Include="Assets\Other\icon.png" />
     <Resource Include="Assets\Other\money.png" />
   </ItemGroup>
@@ -205,6 +204,21 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Backgrounds\default.png" />
+    <Resource Include="Assets\Backgrounds\red.png" />
+    <Resource Include="Assets\Backgrounds\yellow.png" />
+    <Resource Include="Assets\Settings\background.png" />
+    <Resource Include="Assets\Settings\button_ok.png" />
+    <Resource Include="Assets\Settings\button_save.png" />
+    <Resource Include="Assets\Settings\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Settings\button_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Settings\button_right.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
