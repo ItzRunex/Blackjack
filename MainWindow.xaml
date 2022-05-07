@@ -112,7 +112,7 @@
                     </Style.Triggers>
                 </Style>
             </Grid.Resources>
-            <Grid x:Name="Chips" HorizontalAlignment="Left" Width="1024" Height="100" VerticalAlignment="Top" Margin="0,20,0,0">
+            <Grid x:Name="Chips" HorizontalAlignment="Left" Width="1018" Height="100" VerticalAlignment="Top" Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="262"/>
                     <ColumnDefinition Width="20"/>
@@ -129,6 +129,9 @@
                 <Button Name="settings" Click="OpenSettings" Grid.Column="0" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,0,0,0">
                     <Image Source="Assets\Settings\icon.png"/>
                 </Button>
+                <Button Name="admin" Click="OpenAdmin" Grid.Column="0" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,0,0,0">
+                    <Image Source="Assets\Admin\icon.png"/>
+                </Button>
                 <Button Name="b50" Click="Bet" Grid.Column="2">
                     <Image Source="Assets\Chips\50.png"/>
                 </Button>
@@ -140,6 +143,9 @@
                 </Button>
                 <Button Name="b500" Click="Bet" Grid.Column="8">
                     <Image Source="Assets\Chips\500.png"/>
+                </Button>
+                <Button Name="leaderboard" Click="OpenLeaderboard" Grid.Column="10" Height="50" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0, 30,0">
+                    <Image Source="Assets\Leaderboard\icon.png" Margin="8"/>
                 </Button>
             </Grid>
             <Grid x:Name="Actions" Width="441" Height="60" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,81,47">

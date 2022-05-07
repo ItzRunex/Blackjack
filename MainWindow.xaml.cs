@@ -12,7 +12,7 @@ namespace BlackjackGame
 {
     public partial class MainWindow : Window
     {
-        public static SqlConnection sqlCon = new SqlConnection(@"Data Source = dewest.database.windows.net; Initial Catalog = blackjackgame; User ID = mish; Password = Shomiegotin1; Trusted_Connection = False; MultipleActiveResultSets = True");
+        public static SqlConnection sqlCon = new SqlConnection(@"Data Source = dewest.database.windows.net; Initial Catalog = blackjackgame; User ID = mish; Password = Shomiegotin1; Trusted_Connection = False;");
         private Player player = new Player();
         private Deck deck = new Deck();
         private Card hidden; //A call for the hidden dealer card.
@@ -22,6 +22,10 @@ namespace BlackjackGame
             InitializeComponent();
             CheckBackground();
             UpdateStats();
+            if (CheckForAdmin())
+                admin.Visibility = Visibility.Visible;
+            else
+                admin.Visibility = Visibility.Hidden;
         }
         public Player Player
         {
@@ -68,7 +72,7 @@ namespace BlackjackGame
             //Check if player blackjack or if dealer blackjack, show the dealer card and end the game. Else enable the action buttons.
             if (player.Score == 21 && dealerScore == 21)
             {
-                announcer.Text = $"Push.{Environment.NewLine}+${player.BetAmt}";
+                announcer.Text = $"Push.{Environment.NewLine}+${player.Push()}";
                 await Reset();
             }
             else if (player.Score == 21)
@@ -180,7 +184,7 @@ namespace BlackjackGame
             else if (dealerScore < player.Score)
                 announcer.Text = $"You win!{Environment.NewLine}+${player.Win()}";
             else
-                announcer.Text = $"Push.{Environment.NewLine}+${player.BetAmt}";
+                announcer.Text = $"Push.{Environment.NewLine}+${player.Push()}";
             await Reset();
         }
         private async void Double(object sender, RoutedEventArgs e)
@@ -277,6 +281,27 @@ namespace BlackjackGame
             settings.Owner = this;
             settings.Show();
         }
+        private void OpenLeaderboard(object sender, RoutedEventArgs e)
+        {
+            Leaderboard lb = new Leaderboard();
+            lb.Owner = this;
+            lb.Show();
+        }
+        private void OpenAdmin(object sender, RoutedEventArgs e)
+        {
+            Admin admin = new Admin();
+            admin.Owner = this;
+            admin.Show();
+        }
+        private bool CheckForAdmin()
+        {
+            SqlCommand checkAdmin = new SqlCommand($"SELECT IsAdmin FROM Accounts WHERE Username='{player.Username}'", sqlCon);
+            SqlDataReader reader = checkAdmin.ExecuteReader();
+            reader.Read();
+            bool isAdmin = reader.GetBoolean(0);
+            reader.Close();
+            return isAdmin;
+        }
         public void CheckBackground()
         {
             string[] bgs = { "default.png", "red.png", "yellow.png" };
@@ -287,6 +312,7 @@ namespace BlackjackGame
             int bgIndex = 0;
             if (dataReader.Read())
                 bgIndex = dataReader.GetInt32(0);
+            dataReader.Close();
             ImageBrush currentBg = new ImageBrush();
             currentBg.ImageSource = new BitmapImage(new Uri($"..\\..\\Assets\\Backgrounds\\{bgs[bgIndex]}", UriKind.Relative));
             Background = currentBg;
@@ -294,7 +320,6 @@ namespace BlackjackGame
             //    announcer.Foreground = defaultColor;
             //else
             //    announcer.Foreground = defaultColor;
-            sqlCon.Close();
         }
         private void ShowScore(bool dealer)
         {
@@ -477,6 +502,11 @@ namespace BlackjackGame
         {
             balance += BetAmt * 2;
             return BetAmt * 2;
+        }
+        public int Push()
+        {
+            balance += BetAmt;
+            return BetAmt;
         }
         public bool IsBroke()
         {

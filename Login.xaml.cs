@@ -40,7 +40,7 @@ namespace BlackjackGame
                     {
                         if (sqlCon.State == ConnectionState.Closed)
                             sqlCon.Open();
-                        SqlCommand sqlRegCmd = new SqlCommand($"INSERT INTO Accounts (Username, Password, Balance) VALUES ('{txtUserName.Text}', '{PasswordBox.Password}', 2500)", sqlCon);
+                        SqlCommand sqlRegCmd = new SqlCommand($"INSERT INTO Accounts (Username, Password, Balance, Background, IsAdmin) VALUES ('{txtUserName.Text}', '{PasswordBox.Password}', 2500, 0, 0)", sqlCon);
                         sqlRegCmd.ExecuteNonQuery();
                         if (GetBalance() < 50)
                         {

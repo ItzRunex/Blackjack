@@ -70,9 +70,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Admin.xaml.cs">
+      <DependentUpon>Admin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Leaderboard.xaml.cs">
+      <DependentUpon>Leaderboard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Page Include="Admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Leaderboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -219,6 +233,32 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Settings\button_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Leaderboard\first.png" />
+    <Resource Include="Assets\Leaderboard\second.png" />
+    <Resource Include="Assets\Leaderboard\third.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Leaderboard\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Admin\adminbg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Admin\button_minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Admin\button_plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Admin\button_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Leaderboard\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Admin\icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

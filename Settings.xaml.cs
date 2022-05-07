@@ -93,8 +93,8 @@ namespace BlackjackGame
         }
         private void CloseSettings(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            this.Closed += (a, b) => { this.Owner.Activate(); };
+            Close();
+            Closed += (a, b) => { Owner.Activate(); };
         }
     }
 }
